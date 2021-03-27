@@ -35,7 +35,7 @@ class NearEarthObject:
     """
     # TODO: How can you, and should you, change the arguments to this constructor?
     # If you make changes, be sure to update the comments in this file.
-    def __init__(self, designation, name=None, diameter=float('nan'), hazardous=False):
+    def __init__(self, designation, name, diameter, hazardous):
         """Create a new `NearEarthObject`.
 
         :param str designation: The primary designation for this NearEarthObject
@@ -48,10 +48,28 @@ class NearEarthObject:
         # You should coerce these values to their appropriate data type and
         # handle any edge cases, such as a empty name being represented by `None`
         # and a missing diameter being represented by `float('nan')`.
-        self._designation = designation
-        self._name = name
-        self._diameter = diameter
-        self._hazardous = hazardous
+        if designation == "":
+            raise NameError("value of 'designation' should never be empty")
+        else:
+            self._designation = designation
+
+        if name == "":
+            self._name=None
+        else:
+            self._name = name
+
+        if diameter == "":
+            self._diameter = float("nan")
+        else:
+            self._diameter = float(diameter)
+
+        if hazardous == "Y":
+            self._hazardous = True
+        elif hazardous == "N":
+            self._hazardous = False
+        else:
+            self._hazardous= None
+            #raise NameError("Error: Wrong value of hazardous")
 
         # Create an empty initial collection of linked approaches.
         self.approaches = []
@@ -89,18 +107,26 @@ class NearEarthObject:
         # method for examples of advanced string formatting.
         diameter_str=''
         condition=''
+        and_str=''
 
-        if self.hazardous:
-            condition='is'
+        if self.hazardous == True:
+            condition=' is potentially hazardous.'
+        elif self.hazardous == False:
+            condition=' is not potentially hazardous.'
         else:
-            condition='is not'
+            condition=" do not know if it's potentionally hazardous or not"
 
         if not math.isnan(self.diameter):
-            diameter_str=f' has a diameter of {self.diameter:.3f} km and '
+            diameter_str=f' has a diameter of {self.diameter:.3f} km'
         else:
-            diameter_str=' '
+            diameter_str=''
 
-        return f"A NearEarthObject {self.fullname}{diameter_str}{condition} potentially hazardous."
+        if diameter_str != '' and condition != '':
+            and_str=' and'
+        else:
+            and_str=''
+
+        return f"A neo {self.fullname}{diameter_str}{and_str}{condition}"
 
     def __repr__(self):
         """Return `repr(self)`, a computer-readable string representation of this object."""
@@ -137,10 +163,21 @@ class CloseApproach:
         # The `cd_to_datetime` function will be useful.
 
         #self._designation = designation
+        if velocity == "":
+            raise NameError("Error: Wrong value of velocity")
+        else:
+            self._velocity = float(velocity)
 
-        self._time = helpers.cd_to_datetime(time)  # TODO: Use the cd_to_datetime function for this attribute.
-        self._distance = distance
-        self._velocity = velocity
+        if time == "":
+            raise NameError("Error: Wrong value of time")
+        else:
+            self._time = cd_to_datetime(time)  # TODO: Use the cd_to_datetime function for this attribute.
+
+        if distance == "":
+            raise NameError("Error: Wrong value of distance")
+        else:
+            self._distance = float(distance)
+
 
         # Create an attribute for the referenced NEO, originally None.
         self._neo = None
@@ -159,7 +196,7 @@ class CloseApproach:
 
     @property
     def neo(self):
-        return self.neo
+        return self._neo
 
     @property
     def time_str(self):
@@ -177,7 +214,7 @@ class CloseApproach:
         # TODO: Use this object's `.time` attribute and the `datetime_to_str` function to
         # build a formatted representation of the approach time.
         # TODO: Use self.designation and self.name to build a fullname for this object.
-        return helpers.datetime_to_str(self.time)
+        return datetime_to_str(self.time)
 
     def __str__(self):
         """Return `str(self)`."""
@@ -186,7 +223,11 @@ class CloseApproach:
         # method for examples of advanced string formatting.
 
         #On 1910-05-20 12:49, '1P (Halley)' approaches Earth at a distance of 0.15 au and a velocity of 70.56 km/s.
-        return f"At {self.time_str}, '{self.neo.fullname}' approaches Earth at a distance of {self.distance:.2f} au and a velocity of {self.velocity:.2f} km/s."
+        if self.neo == None:
+            neo_fullname = ""
+        else:
+            neo_fullname = self.neo.fullname
+        return f"At {self.time_str}, '{neo_fullname}' approaches Earth at a distance of {self.distance:.2f} au and a velocity of {self.velocity:.2f} km/s."
 
     def __repr__(self):
         """Return `repr(self)`, a computer-readable string representation of this object."""
