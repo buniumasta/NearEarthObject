@@ -163,10 +163,21 @@ class CloseApproach:
         # The `cd_to_datetime` function will be useful.
 
         #self._designation = designation
+        if velocity == "":
+            raise NameError("Error: Wrong value of velocity")
+        else:
+            self._velocity = float(velocity)
 
-        self._time = helpers.cd_to_datetime(time)  # TODO: Use the cd_to_datetime function for this attribute.
-        self._distance = distance
-        self._velocity = velocity
+        if time == "":
+            raise NameError("Error: Wrong value of time")
+        else:
+            self._time = cd_to_datetime(time)  # TODO: Use the cd_to_datetime function for this attribute.
+
+        if distance == "":
+            raise NameError("Error: Wrong value of distance")
+        else:
+            self._distance = float(distance)
+
 
         # Create an attribute for the referenced NEO, originally None.
         self._neo = None
@@ -185,7 +196,7 @@ class CloseApproach:
 
     @property
     def neo(self):
-        return self.neo
+        return self._neo
 
     @property
     def time_str(self):
@@ -203,7 +214,7 @@ class CloseApproach:
         # TODO: Use this object's `.time` attribute and the `datetime_to_str` function to
         # build a formatted representation of the approach time.
         # TODO: Use self.designation and self.name to build a fullname for this object.
-        return helpers.datetime_to_str(self.time)
+        return datetime_to_str(self.time)
 
     def __str__(self):
         """Return `str(self)`."""
@@ -212,7 +223,11 @@ class CloseApproach:
         # method for examples of advanced string formatting.
 
         #On 1910-05-20 12:49, '1P (Halley)' approaches Earth at a distance of 0.15 au and a velocity of 70.56 km/s.
-        return f"At {self.time_str}, '{self.neo.fullname}' approaches Earth at a distance of {self.distance:.2f} au and a velocity of {self.velocity:.2f} km/s."
+        if self.neo == None:
+            neo_fullname = ""
+        else:
+            neo_fullname = self.neo.fullname
+        return f"At {self.time_str}, '{neo_fullname}' approaches Earth at a distance of {self.distance:.2f} au and a velocity of {self.velocity:.2f} km/s."
 
     def __repr__(self):
         """Return `repr(self)`, a computer-readable string representation of this object."""
