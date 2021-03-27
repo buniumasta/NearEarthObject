@@ -68,11 +68,12 @@ class NearEarthObject:
         elif hazardous == "N":
             self._hazardous = False
         else:
-            self._hazardous= None
+            self._hazardous= False
+            #noticed that in some records value is missing.
             #raise NameError("Error: Wrong value of hazardous")
 
         # Create an empty initial collection of linked approaches.
-        self.approaches = []
+        self._approaches = []
 
     @property
     def fullname(self):
@@ -99,6 +100,14 @@ class NearEarthObject:
     @property
     def hazardous(self):
         return self._hazardous
+
+    @property
+    def approaches(self):
+        return self._approaches
+
+    @approaches.setter
+    def approaches(self,approaches_set):
+        self._approaches=approaches_set
 
     def __str__(self):
         """Return `str(self)`."""
@@ -149,7 +158,7 @@ class CloseApproach:
     """
     # TODO: How can you, and should you, change the arguments to this constructor?
     # If you make changes, be sure to update the comments in this file.
-    def __init__(self, time=None, distance=0.0, velocity=0.0):
+    def __init__(self, designation, time=None, distance=0.0, velocity=0.0):
         """Create a new `CloseApproach`.
 
         :param time: The date and time, in UTC, at which the NEO passes closest to Earth.
@@ -162,7 +171,11 @@ class CloseApproach:
         # You should coerce these values to their appropriate data type and handle any edge cases.
         # The `cd_to_datetime` function will be useful.
 
-        #self._designation = designation
+        if designation == "":
+            raise NameError("Error: Wrong value of designation")
+        else:
+            self._designation = designation
+
         if velocity == "":
             raise NameError("Error: Wrong value of velocity")
         else:
@@ -181,6 +194,10 @@ class CloseApproach:
 
         # Create an attribute for the referenced NEO, originally None.
         self._neo = None
+
+    @property
+    def designation(self):
+        return self._designation
 
     @property
     def time(self):
@@ -215,6 +232,10 @@ class CloseApproach:
         # build a formatted representation of the approach time.
         # TODO: Use self.designation and self.name to build a fullname for this object.
         return datetime_to_str(self.time)
+
+    @neo.setter
+    def neo(self,neo):
+        self._neo = neo
 
     def __str__(self):
         """Return `str(self)`."""
