@@ -68,7 +68,8 @@ class NearEarthObject:
         elif hazardous == "N":
             self._hazardous = False
         else:
-            self._hazardous= None
+            self._hazardous= False
+            #noticed that in some records value is missing.
             #raise NameError("Error: Wrong value of hazardous")
 
         # Create an empty initial collection of linked approaches.

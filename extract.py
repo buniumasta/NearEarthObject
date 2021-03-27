@@ -123,13 +123,7 @@ def load_approaches(cad_json_path="./data/cad.json"):
 
 if __name__ == "__main__":
     neos=load_neos()
-
-    for item in neos.values():
-        print(item)
-    print(neos["2010 CJ188"])
-    print(len(neos.values()))
-
     approaches=load_approaches()
 
-    for key,value in approaches.items():
-        print(f'{key}: {value}')
+    for neo in neos:
+        print(neo)
