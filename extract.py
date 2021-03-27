@@ -15,6 +15,7 @@ You'll edit this file in Task 2.
 import csv
 import json
 import models
+import collections.abc
 
 from models import NearEarthObject, CloseApproach
 
@@ -30,7 +31,7 @@ def load_neos(neo_csv_path="./data/neos.csv"):
     id,spkid,full_name,pdes,name,prefix,neo,pha,H,G,M1,M2,K1,K2,PC,diameter
     Interested in: pdes, name,pha, diameter
     """
-    neos = {}
+    neos = list()
     nm_lines = 0
     with open(neo_csv_path) as csv_file:
         reader=csv.reader(csv_file)
@@ -43,10 +44,10 @@ def load_neos(neo_csv_path="./data/neos.csv"):
                     diameter_i=line.index('diameter')
                 except ValueError as error:
                     print(f'Error: No valid indexes found: {error}')
-                    return {}
+                    return None
             else:
                 #print(f"data:{line[3]},{line[4]},{line[15]},{line[7]}")
-                neos[line[pdes_i]]=models.NearEarthObject(line[pdes_i],line[name_i],line[diameter_i],line[pha_i])
+                neos.append(models.NearEarthObject(line[pdes_i],line[name_i],line[diameter_i],line[pha_i]))
             nm_lines += 1
             #if nm_lines > 1005:
             #    break
@@ -77,14 +78,14 @@ def load_approaches(cad_json_path="./data/cad.json"):
         des,cd,dist,v_rel
     """
     # TODO: Load close approach data from the given JSON file.
-    return_approaches={}
+    return_approaches= list()
     #print('Loadding data:')
     with open(cad_json_path) as json_file:
         data=json.load(json_file)
 
     #print('Printing read keys in loaded collection:')
-    for item in data.keys():
-        type_of_item=type(data[item])
+    #for item in data.keys():
+    #    type_of_item=type(data[item])
         #print(f' {item}:{type_of_item}')
 
     fields=data['fields']
@@ -95,29 +96,28 @@ def load_approaches(cad_json_path="./data/cad.json"):
         v_rel_index=fields.index('v_rel')
     except ValueError as error:
         #print(f'Error: No valid indexes found: {error}')
-        return {}
+        return None
     else:
         #print(f'des_index:{des_index}, cd_index:{cd_index}, dist_index:{dist_index}, v_rel_index:{v_rel_index}')
         list_approaches=data['data']
-        nb_lines=0
+        #nb_lines=0
         for record in list_approaches:
             #_(self, time=None, distance=0.0, velocity=0.0):
-            current_des=record[des_index]
             #print(current_des)
-            if current_des in return_approaches.keys():
-                current_approach=CloseApproach(record[cd_index],record[dist_index],record[v_rel_index])
+            #if current_des in return_approaches.keys():
+            return_approaches.append(CloseApproach(record[des_index],record[cd_index],record[dist_index],record[v_rel_index]))
                 #print(current_approach)
-                return_approaches[current_des].append(current_approach)
-            else:
-                my_list=list()
-                current_approach=CloseApproach(record[cd_index],record[dist_index],record[v_rel_index])
-                #print(current_approach)
-                my_list.append(current_approach)
-                return_approaches[current_des]=my_list
+            #    return_approaches[current_des].append(current_approach)
+            #else:
+            #    my_list=list()
+            #    current_approach=CloseApproach(record[cd_index],record[dist_index],record[v_rel_index])
+            #    #print(current_approach)
+            #    my_list.append(current_approach)
+            #    return_approaches[current_des]=my_list
 
             #if nb_lines > 1000:
             #    break
-            nb_lines+=1
+            #nb_lines+=1
 
     return return_approaches
 
