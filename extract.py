@@ -78,14 +78,14 @@ def load_approaches(cad_json_path="./data/cad.json"):
     """
     # TODO: Load close approach data from the given JSON file.
     return_approaches={}
-    print('Loadding data:')
+    #print('Loadding data:')
     with open(cad_json_path) as json_file:
         data=json.load(json_file)
 
-    print('Printing read keys in loaded collection:')
+    #print('Printing read keys in loaded collection:')
     for item in data.keys():
         type_of_item=type(data[item])
-        print(f' {item}:{type_of_item}')
+        #print(f' {item}:{type_of_item}')
 
     fields=data['fields']
     try:
@@ -94,10 +94,10 @@ def load_approaches(cad_json_path="./data/cad.json"):
         dist_index=fields.index('dist')
         v_rel_index=fields.index('v_rel')
     except ValueError as error:
-        print(f'Error: No valid indexes found: {error}')
+        #print(f'Error: No valid indexes found: {error}')
         return {}
     else:
-        print(f'des_index:{des_index}, cd_index:{cd_index}, dist_index:{dist_index}, v_rel_index:{v_rel_index}')
+        #print(f'des_index:{des_index}, cd_index:{cd_index}, dist_index:{dist_index}, v_rel_index:{v_rel_index}')
         list_approaches=data['data']
         nb_lines=0
         for record in list_approaches:

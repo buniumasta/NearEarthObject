@@ -72,7 +72,7 @@ class NearEarthObject:
             #raise NameError("Error: Wrong value of hazardous")
 
         # Create an empty initial collection of linked approaches.
-        self.approaches = []
+        self._approaches = []
 
     @property
     def fullname(self):
@@ -99,6 +99,14 @@ class NearEarthObject:
     @property
     def hazardous(self):
         return self._hazardous
+
+    @property
+    def approaches(self):
+        return self._approaches
+
+    @approaches.setter
+    def approaches(self,approaches_set):
+        self._approaches=approaches_set
 
     def __str__(self):
         """Return `str(self)`."""
@@ -163,6 +171,7 @@ class CloseApproach:
         # The `cd_to_datetime` function will be useful.
 
         #self._designation = designation
+
         if velocity == "":
             raise NameError("Error: Wrong value of velocity")
         else:
@@ -215,6 +224,10 @@ class CloseApproach:
         # build a formatted representation of the approach time.
         # TODO: Use self.designation and self.name to build a fullname for this object.
         return datetime_to_str(self.time)
+
+    @neo.setter
+    def neo(self,neo):
+        self._neo = neo
 
     def __str__(self):
         """Return `str(self)`."""
