@@ -102,22 +102,9 @@ def load_approaches(cad_json_path="./data/cad.json"):
         list_approaches=data['data']
         #nb_lines=0
         for record in list_approaches:
-            #_(self, time=None, distance=0.0, velocity=0.0):
-            #print(current_des)
-            #if current_des in return_approaches.keys():
-            return_approaches.append(CloseApproach(record[des_index],record[cd_index],record[dist_index],record[v_rel_index]))
-                #print(current_approach)
-            #    return_approaches[current_des].append(current_approach)
-            #else:
-            #    my_list=list()
-            #    current_approach=CloseApproach(record[cd_index],record[dist_index],record[v_rel_index])
-            #    #print(current_approach)
-            #    my_list.append(current_approach)
-            #    return_approaches[current_des]=my_list
 
-            #if nb_lines > 1000:
-            #    break
-            #nb_lines+=1
+            return_approaches.append(CloseApproach(record[des_index],record[cd_index],record[dist_index],record[v_rel_index]))
+
 
     return return_approaches
 
