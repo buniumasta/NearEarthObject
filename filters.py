@@ -17,6 +17,7 @@ iterator.
 You'll edit this file in Tasks 3a and 3c.
 """
 import operator
+import itertools
 
 
 class UnsupportedCriterionError(NotImplementedError):
@@ -173,5 +174,89 @@ def limit(iterator, n=None):
     :param n: The maximum number of values to produce.
     :yield: The first (at most) `n` values from the iterator.
     """
-    # TODO: Produce at most `n` values from the given iterator.
-    return iterator
+    #TODO: Produce at most `n` values from the given iterator.
+    #myLista = []
+    #print(f"Iterator:{iterator}")
+    #print(f"n:{n}")
+    #print(f"\n n:{n}\ n")
+
+####Working with standard function iter Tools #########
+
+    if n == 0:
+        n=None
+    return itertools.islice(iterator,n)
+
+###########################################
+    #
+    # if n==0 or n==None:
+    #     while True:
+    #         try:
+    #
+    #             for i, elem in enumerate(iterator):
+    #                 yield elem
+    #         except StopIteration:
+    #             break
+    #
+    # else:
+    #     j=0
+    #     it=iter(range(0,n))
+    #     try:
+    #         for i, elem in enumerate(iterator):
+    #             yield elem
+    #             next(it)
+    #     except StopIteration:
+    #         pass
+    #
+
+###############Working Code from Slice#############
+#         start=0
+#         stop=n
+#         step=1
+#         it = iter(range(start, stop, step))
+#         print(it)
+#         try:
+#             nexti = next(it)
+#             print(f"nextit:{nexti}")
+#         except StopIteration:
+#         # Consume *iterable* up to the *start* position.
+#             # for i, element in zip(range(start), iterator):
+#             #     print("do I do Something??")
+#             #     pass
+#             return
+#         try:
+#             for i, element in enumerate(iterator):
+#                 print(f"i:{i},nexti:{nexti}  element{element}")
+#                 if i == nexti:
+#                     yield element
+#                     nexti = next(it)
+#         except StopIteration:
+#             pass
+#         # Consume to *stop*.
+#             # for i, element in zip(range(i + 1, stop), iterator):
+#             #     print("Consume to stop!")
+#             #     pass
+# #####################################################
+
+#        try:
+#            i=0
+#            for elem in iterator:
+#                if i < n:
+#                    yield elem
+#                else:
+#                    break
+#        except StopIteration:
+#            pass
+        # Consume to *stop*.
+        #    for i, element in zip(range(i + 1, stop), iterable):
+        #        pass
+        #yield itertools.islice(iterator,0,n)
+        #for i in range(n):
+        #    try:
+        #        yield next(iterator)
+                #yield next_item
+        #    except StopIteration as Error:
+                #print("Found less than 10 values")
+        #        break
+
+
+    #return iterator
