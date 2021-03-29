@@ -17,6 +17,7 @@ iterator.
 You'll edit this file in Tasks 3a and 3c.
 """
 import operator
+import itertools
 
 
 class UnsupportedCriterionError(NotImplementedError):
@@ -72,6 +73,31 @@ class AttributeFilter:
         return f"{self.__class__.__name__}(op=operator.{self.op.__name__}, value={self.value})"
 
 
+class DistanceFilter(AttributeFilter):
+    @classmethod
+    def get(cls, approach):
+        return approach.distance
+
+class DateFilter(AttributeFilter):
+    @classmethod
+    def get(cls, approach):
+        return approach.time.date()
+
+class VelocityFilter(AttributeFilter):
+    @classmethod
+    def get(cls, approach):
+        return approach.velocity
+
+class DiameterFilter(AttributeFilter):
+    @classmethod
+    def get(cls, approach):
+        return approach.neo.diameter
+
+class HazardousFilter(AttributeFilter):
+    @classmethod
+    def get(cls, approach):
+        return approach.neo.hazardous
+
 def create_filters(date=None, start_date=None, end_date=None,
                    distance_min=None, distance_max=None,
                    velocity_min=None, velocity_max=None,
@@ -107,7 +133,36 @@ def create_filters(date=None, start_date=None, end_date=None,
     :return: A collection of filters for use with `query`.
     """
     # TODO: Decide how you will represent your filters.
-    return ()
+    filters=[]
+    if date != None:
+        filters.append(DateFilter(operator.eq,date))
+    if start_date != None:
+        filters.append(DateFilter(operator.ge,start_date))
+    if end_date != None:
+        filters.append(DateFilter(operator.le,end_date))
+
+    if distance_min != None:
+        filters.append(DistanceFilter(operator.ge,distance_min))
+    if distance_max != None:
+        filters.append(DistanceFilter(operator.le,distance_max))
+
+    if velocity_min != None:
+        filters.append(VelocityFilter(operator.ge,velocity_min))
+    if velocity_max != None:
+        filters.append(VelocityFilter(operator.le,velocity_max))
+
+    if diameter_min != None:
+        filters.append(DiameterFilter(operator.ge,diameter_min))
+    if diameter_max != None:
+        filters.append(DiameterFilter(operator.le,diameter_max))
+
+    if hazardous != None:
+        filters.append(HazardousFilter(operator.eq,hazardous))
+
+    return (filters)
+
+
+
 
 
 def limit(iterator, n=None):
@@ -119,5 +174,89 @@ def limit(iterator, n=None):
     :param n: The maximum number of values to produce.
     :yield: The first (at most) `n` values from the iterator.
     """
-    # TODO: Produce at most `n` values from the given iterator.
-    return iterator
+    #TODO: Produce at most `n` values from the given iterator.
+    #myLista = []
+    #print(f"Iterator:{iterator}")
+    #print(f"n:{n}")
+    #print(f"\n n:{n}\ n")
+
+####Working with standard function iter Tools #########
+
+    if n == 0:
+        n=None
+    return itertools.islice(iterator,n)
+
+###########################################
+    #
+    # if n==0 or n==None:
+    #     while True:
+    #         try:
+    #
+    #             for i, elem in enumerate(iterator):
+    #                 yield elem
+    #         except StopIteration:
+    #             break
+    #
+    # else:
+    #     j=0
+    #     it=iter(range(0,n))
+    #     try:
+    #         for i, elem in enumerate(iterator):
+    #             yield elem
+    #             next(it)
+    #     except StopIteration:
+    #         pass
+    #
+
+###############Working Code from Slice#############
+#         start=0
+#         stop=n
+#         step=1
+#         it = iter(range(start, stop, step))
+#         print(it)
+#         try:
+#             nexti = next(it)
+#             print(f"nextit:{nexti}")
+#         except StopIteration:
+#         # Consume *iterable* up to the *start* position.
+#             # for i, element in zip(range(start), iterator):
+#             #     print("do I do Something??")
+#             #     pass
+#             return
+#         try:
+#             for i, element in enumerate(iterator):
+#                 print(f"i:{i},nexti:{nexti}  element{element}")
+#                 if i == nexti:
+#                     yield element
+#                     nexti = next(it)
+#         except StopIteration:
+#             pass
+#         # Consume to *stop*.
+#             # for i, element in zip(range(i + 1, stop), iterator):
+#             #     print("Consume to stop!")
+#             #     pass
+# #####################################################
+
+#        try:
+#            i=0
+#            for elem in iterator:
+#                if i < n:
+#                    yield elem
+#                else:
+#                    break
+#        except StopIteration:
+#            pass
+        # Consume to *stop*.
+        #    for i, element in zip(range(i + 1, stop), iterable):
+        #        pass
+        #yield itertools.islice(iterator,0,n)
+        #for i in range(n):
+        #    try:
+        #        yield next(iterator)
+                #yield next_item
+        #    except StopIteration as Error:
+                #print("Found less than 10 values")
+        #        break
+
+
+    #return iterator
