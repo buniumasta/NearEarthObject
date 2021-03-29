@@ -115,9 +115,9 @@ def create_filters(date=None, start_date=None, end_date=None,
     # TODO: Decide how you will represent your filters.
     filters=[]
     if distance_min != None:
-        filters.append(DistanceFilter('>=',distance_min))
+        filters.append(DistanceFilter(operator.ge,distance_min))
     if distance_max != None:
-        filters.appeend(DistanceFilter('<=',distance_max))
+        filters.append(DistanceFilter(operator.le,distance_max))
     return (filters)
 
 
