@@ -112,10 +112,16 @@ class NearEarthObject:
     def serialize(self):
         #{'designation': '433', 'name': 'Eros', 'diameter_km': 16.84, 'potentially_hazardous': False}
         if self.name == None:
-            f_name=''
+            f_name = ''
         else:
-            f_name=self.name
-        res_dict={'designation':self.designation, 'name':f_name, 'diameter_km':self.diameter, 'hazardous':self.hazardous}
+            f_name = self.name
+
+        if self.hazardous == True:
+            f_haz = 'True'
+        else:
+            f_haz = 'False'
+
+        res_dict={'designation':self.designation, 'name':f_name, 'diameter_km':self.diameter, 'potentially_hazardous':self.hazardous}
         #row=f'row: designation:{result.designation}, name:{f_name}, diameter_km{result.neo.diameter}, hazardous:{result.neo.hazardous}'
         return res_dict
 
@@ -124,16 +130,16 @@ class NearEarthObject:
         # TODO: Use this object's attributes to return a human-readable string representation.
         # The project instructions include one possibility. Peek at the __repr__
         # method for examples of advanced string formatting.
-        diameter_str=''
-        condition=''
-        and_str=''
+        diameter_str = ''
+        condition = ''
+        and_str = ''
 
         if self.hazardous == True:
-            condition=' is potentially hazardous.'
+            condition = ' is potentially hazardous.'
         elif self.hazardous == False:
-            condition=' is not potentially hazardous.'
+            condition = ' is not potentially hazardous.'
         else:
-            condition=" do not know if it's potentionally hazardous or not"
+            condition = " do not know if it's potentionally hazardous or not"
 
         if not math.isnan(self.diameter):
             diameter_str=f' has a diameter of {self.diameter:.3f} km'
