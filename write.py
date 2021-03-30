@@ -93,7 +93,7 @@ def write_to_json(results, filename):
 
     with open(filename,'w') as json_fl:
         #
-        json.dump([lista], json_fl, indent=4)
+        json.dump(lista, json_fl, indent=4)
 
 if __name__ == '__main__':
     pass
