@@ -109,6 +109,16 @@ class NearEarthObject:
     def approaches(self,approaches_set):
         self._approaches=approaches_set
 
+    def serialize(self):
+        #{'designation': '433', 'name': 'Eros', 'diameter_km': 16.84, 'potentially_hazardous': False}
+        if self.name == None:
+            f_name=''
+        else:
+            f_name=self.name
+        res_dict={'designation':self.designation, 'name':f_name, 'diameter_km':self.diameter, 'hazardous':self.hazardous}
+        #row=f'row: designation:{result.designation}, name:{f_name}, diameter_km{result.neo.diameter}, hazardous:{result.neo.hazardous}'
+        return res_dict
+
     def __str__(self):
         """Return `str(self)`."""
         # TODO: Use this object's attributes to return a human-readable string representation.
@@ -236,6 +246,14 @@ class CloseApproach:
     @neo.setter
     def neo(self,neo):
         self._neo = neo
+
+    def serialize(self):
+        #{'datetime_utc': '2025-11-30 02:18', 'distance_au': 0.397647483265833, 'velocity_km_s': 3.72885069167641}
+        #row=f'row:datetime:{result.time_str},distance_au:{result.distance}, velocity_km_s:{result.velocity}, designation:{result.designation}, name:{f_name}, diameter_km{result.neo.diameter}, hazardous:{result.neo.hazardous}'
+        res_dict={'datetime_utc':self.time_str, 'distance_au':self.distance, 'velocity_km_s':self.velocity, 'neo':self.neo.serialize()}
+        #row=f'row: designation:{result.designation}, name:{f_name}, diameter_km{result.neo.diameter}, hazardous:{result.neo.hazardous}'
+        return res_dict
+
 
     def __str__(self):
         """Return `str(self)`."""
