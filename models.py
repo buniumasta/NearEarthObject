@@ -33,8 +33,7 @@ class NearEarthObject:
     initialized to an empty collection, but eventually populated in the
     `NEODatabase` constructor.
     """
-    # TODO: How can you, and should you, change the arguments to this constructor?
-    # If you make changes, be sure to update the comments in this file.
+
     def __init__(self, designation, name, diameter, hazardous):
         """Create a new `NearEarthObject`.
 
@@ -43,11 +42,7 @@ class NearEarthObject:
         :param float diameter: The diameter, in kilometers, of this NearEarthObject
         :hazardous bool: Whether or not this NearEarthObject is potentially hazardous
         """
-        # TODO: Assign information from the arguments passed to the constructor
-        # onto attributes named `designation`, `name`, `diameter`, and `hazardous`.
-        # You should coerce these values to their appropriate data type and
-        # handle any edge cases, such as a empty name being represented by `None`
-        # and a missing diameter being represented by `float('nan')`.
+
         if designation == "":
             raise NameError("value of 'designation' should never be empty")
         else:
@@ -70,16 +65,18 @@ class NearEarthObject:
         else:
             self._hazardous= False
             #noticed that in some records value is missing.
-            #raise NameError("Error: Wrong value of hazardous")
 
         # Create an empty initial collection of linked approaches.
         self._approaches = []
 
     @property
     def fullname(self):
-        """Return a representation of the full name of this NEO."""
-        #In the above, {fullname} is either {designation} ({name}) if the name exists or simply {designation} otherwise. As a hint, this is a great opportunity for a property named fullname!
-        # TODO: Use self.designation and self.name to build a fullname for this object.
+        """Return a representation of the full name of this NEO.
+
+        #{fullname} is either {designation} ({name}) if the name exists or simply {designation} otherwise.
+
+        """
+
         if self.name!=None:
             return f'{self.designation} ({self.name})'
         else:
@@ -110,26 +107,25 @@ class NearEarthObject:
         self._approaches=approaches_set
 
     def serialize(self):
-        #{'designation': '433', 'name': 'Eros', 'diameter_km': 16.84, 'potentially_hazardous': False}
+        """Return a dictionary with atrributes as keyy and its values as values."""
+
+        #replaces None with emty string.
         if self.name == None:
             f_name = ''
         else:
             f_name = self.name
 
-        if self.hazardous == True:
-            f_haz = 'True'
-        else:
-            f_haz = 'False'
+        #build dictionary:
+        res_dict={'designation':self.designation,
+                  'name':f_name,
+                  'diameter_km':self.diameter,
+                  'potentially_hazardous':self.hazardous}
 
-        res_dict={'designation':self.designation, 'name':f_name, 'diameter_km':self.diameter, 'potentially_hazardous':self.hazardous}
-        #row=f'row: designation:{result.designation}, name:{f_name}, diameter_km{result.neo.diameter}, hazardous:{result.neo.hazardous}'
         return res_dict
 
     def __str__(self):
         """Return `str(self)`."""
-        # TODO: Use this object's attributes to return a human-readable string representation.
-        # The project instructions include one possibility. Peek at the __repr__
-        # method for examples of advanced string formatting.
+
         diameter_str = ''
         condition = ''
         and_str = ''
@@ -172,8 +168,7 @@ class CloseApproach:
     private attribute, but the referenced NEO is eventually replaced in the
     `NEODatabase` constructor.
     """
-    # TODO: How can you, and should you, change the arguments to this constructor?
-    # If you make changes, be sure to update the comments in this file.
+
     def __init__(self, designation, time=None, distance=0.0, velocity=0.0):
         """Create a new `CloseApproach`.
 
@@ -182,10 +177,6 @@ class CloseApproach:
         :param velocity: The velocity, in kilometers per second, of the NEO relative to Earth at the closest point.
         :param neo: The NearEarthObject that is making a close approach to Earth
         """
-        # TODO: Assign information from the arguments passed to the constructor
-        # onto attributes named `_designation`, `time`, `distance`, and `velocity`.
-        # You should coerce these values to their appropriate data type and handle any edge cases.
-        # The `cd_to_datetime` function will be useful.
 
         if designation == "":
             raise NameError("Error: Wrong value of designation")
@@ -200,13 +191,12 @@ class CloseApproach:
         if time == "":
             raise NameError("Error: Wrong value of time")
         else:
-            self._time = cd_to_datetime(time)  # TODO: Use the cd_to_datetime function for this attribute.
+            self._time = cd_to_datetime(time)
 
         if distance == "":
             raise NameError("Error: Wrong value of distance")
         else:
             self._distance = float(distance)
-
 
         # Create an attribute for the referenced NEO, originally None.
         self._neo = None
@@ -244,9 +234,7 @@ class CloseApproach:
         formatted string that can be used in human-readable representations and
         in serialization to CSV and JSON files.
         """
-        # TODO: Use this object's `.time` attribute and the `datetime_to_str` function to
-        # build a formatted representation of the approach time.
-        # TODO: Use self.designation and self.name to build a fullname for this object.
+
         return datetime_to_str(self.time)
 
     @neo.setter
@@ -254,24 +242,27 @@ class CloseApproach:
         self._neo = neo
 
     def serialize(self):
-        #{'datetime_utc': '2025-11-30 02:18', 'distance_au': 0.397647483265833, 'velocity_km_s': 3.72885069167641}
-        #row=f'row:datetime:{result.time_str},distance_au:{result.distance}, velocity_km_s:{result.velocity}, designation:{result.designation}, name:{f_name}, diameter_km{result.neo.diameter}, hazardous:{result.neo.hazardous}'
-        res_dict={'datetime_utc':self.time_str, 'distance_au':self.distance, 'velocity_km_s':self.velocity, 'neo':self.neo.serialize()}
-        #row=f'row: designation:{result.designation}, name:{f_name}, diameter_km{result.neo.diameter}, hazardous:{result.neo.hazardous}'
+        """Return a dictionary with atrributes as keyy and its values as values"""
+
+        #Prepare dicitonary
+        res_dict={'datetime_utc':self.time_str,
+                  'distance_au':self.distance,
+                  'velocity_km_s':self.velocity,
+                  'neo':self.neo.serialize()}
+
         return res_dict
 
 
     def __str__(self):
         """Return `str(self)`."""
-        # TODO: Use this object's attributes to return a human-readable string representation.
-        # The project instructions include one possibility. Peek at the __repr__
-        # method for examples of advanced string formatting.
 
+        #Example string:
         #On 1910-05-20 12:49, '1P (Halley)' approaches Earth at a distance of 0.15 au and a velocity of 70.56 km/s.
         if self.neo == None:
             neo_fullname = ""
         else:
             neo_fullname = self.neo.fullname
+
         return f"At {self.time_str}, '{neo_fullname}' approaches Earth at a distance of {self.distance:.2f} au and a velocity of {self.velocity:.2f} km/s."
 
     def __repr__(self):

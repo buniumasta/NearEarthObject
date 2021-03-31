@@ -26,7 +26,7 @@ def load_neos(neo_csv_path="./data/neos.csv"):
 
     Following paraments are stored in files:
         id,spkid,full_name,pdes,name,prefix,neo,pha,H,G,M1,M2,K1,K2,PC,diameter
-    Fucntion will load only following: pdes, name,pha, diameter
+    Function loads only following: pdes, name,pha, diameter
     """
 
     loaded_neos = list()
@@ -71,7 +71,7 @@ def load_approaches(cad_json_path="./data/cad.json"):
             v_inf - velocity relative to a massless body (km/s)
             t_sigma_f - 3-sigma uncertainty in the time of close-approach (formatted in days, hours, and minutes; days are not included if zero; example "13:02" is 13 hours 2 minutes; example "2_09:08" is 2 days 9 hours 8 minutes)
             h - absolute magnitude H (mag)
-    Function wil load only following :
+    Function loads only following :
         des,cd,dist,v_rel
     """
 
