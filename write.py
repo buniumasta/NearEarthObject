@@ -17,46 +17,58 @@ import json
 def write_to_csv(results, filename):
     """Write an iterable of `CloseApproach` objects to a CSV file.
 
-    The precise output specification is in `README.md`. Roughly, each output row
-    corresponds to the information in a single close approach from the `results`
-    stream and its associated near-Earth object.
+    The precise output specification is in `README.md`. Roughly, each output
+    row corresponds to the information in a single close approach from
+    the `results` stream and its associated near-Earth object.
 
     :param results: An iterable of `CloseApproach` objects.
-    :param filename: A Path-like object pointing to where the data should be saved.
+    :param filename: A Path-like object pointing to where the data should
+        be saved.
     """
 
     fieldnames = ('datetime_utc', 'distance_au', 'velocity_km_s',
-                  'designation', 'name', 'diameter_km', 'potentially_hazardous')
+                  'designation', 'name', 'diameter_km',
+                  'potentially_hazardous')
 
     with open(filename, 'w', newline='') as csv_fl:
-        csv_writer=csv.writer(csv_fl)
+        csv_writer = csv.writer(csv_fl)
         csv_writer.writerow(fieldnames)
         for result in results:
-            if result.neo.name == None:
-                f_name=''
+            if result.neo.name is None:
+                f_name = ''
             else:
-                f_name=result.neo.name
+                f_name = result.neo.name
 
-            row_to_file=(result.time_str,str(result.distance),str(result.velocity),result.designation,f_name,str(result.neo.diameter),str(result.neo.hazardous))
+            row_to_file = (
+                result.time_str,
+                str(result.distance),
+                str(result.velocity),
+                result.designation,
+                f_name,
+                str(result.neo.diameter),
+                str(result.neo.hazardous))
+
             csv_writer.writerow(row_to_file)
+
 
 def write_to_json(results, filename):
     """Write an iterable of `CloseApproach` objects to a JSON file.
 
-    The precise output specification is in `README.md`. Roughly, the output is a
-    list containing dictionaries, each mapping `CloseApproach` attributes to
-    their values and the 'neo' key mapping to a dictionary of the associated
+    The precise output specification is in `README.md`. Roughly, the output
+    is a list containing dictionaries, each mapping `CloseApproach` attributes
+    to their values and the 'neo' key mapping to a dictionary of the associated
     NEO's attributes.
 
     :param results: An iterable of `CloseApproach` objects.
-    :param filename: A Path-like object pointing to where the data should be saved.
+    :param filename: A Path-like object pointing to where the data should
+        be saved.
     """
 
-    lista=[]
-    #Format results into Dictionary with serialize method
+    lista = []
+    # Format results into Dictionary with serialize method
     for result in results:
         lista.append(result.serialize())
 
-    #Write re-formatted results to Json file
-    with open(filename,'w') as json_fl:
+    # Write re-formatted results to Json file
+    with open(filename, 'w') as json_fl:
         json.dump(lista, json_fl, indent=4)
