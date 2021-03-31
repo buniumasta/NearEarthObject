@@ -283,6 +283,7 @@ class NEOShell(cmd.Cmd):
     inspect and query commands, while only loading the data (which can be quite
     slow) once.
     """
+    
     intro = ("Explore close approaches of near-Earth objects. "
              "Type `help` or `?` to list commands and `exit` to exit.\n")
     prompt = '(neo) '
@@ -412,9 +413,8 @@ class NEOShell(cmd.Cmd):
         if changed:
             print("The following file(s) have been modified since this "
                   "interactive session began: "
-                  f"{', '.join(str(
-                    f.relative_to(PROJECT_ROOT))
-                    for f in changed)}.", file=sys.stderr)
+                  f"""{', '.join(str(f.relative_to(PROJECT_ROOT))
+                        for f in changed)}.""", file=sys.stderr)
             if not self.aggressive:
                 print("To include these changes, please exit and restart "
                       "this interactive session.",

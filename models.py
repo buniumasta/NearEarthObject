@@ -45,7 +45,6 @@ class NearEarthObject:
         :hazardous bool: Whether or not this NearEarthObject is potentially
             hazardous
         """
-
         if designation == "":
             raise NameError("value of 'designation' should never be empty")
         else:
@@ -80,7 +79,6 @@ class NearEarthObject:
         simply {designation} otherwise.
 
         """
-
         if self.name is not None:
             return f'{self.designation} ({self.name})'
         else:
@@ -88,34 +86,36 @@ class NearEarthObject:
 
     @property
     def designation(self):
+        """Return designation."""
         return self._designation
 
     @property
     def name(self):
+        """Return name."""
         return self._name
 
     @property
     def diameter(self):
+        """Return diameter."""
         return self._diameter
 
     @property
     def hazardous(self):
+        """Return hazardous."""
         return self._hazardous
 
     @property
     def approaches(self):
+        """Return approaches."""
         return self._approaches
 
     @approaches.setter
     def approaches(self, approaches_set):
+        """Set approaches."""
         self._approaches = approaches_set
 
     def serialize(self):
-        """
-        Return a dictionary with atrributes as keyy and its values as values.
-        """
-
-        # replaces None with emty string.
+        """Return a dictionary with atrributes as key and its values."""
         if self.name is None:
             f_name = ''
         else:
@@ -131,7 +131,6 @@ class NearEarthObject:
 
     def __str__(self):
         """Return `str(self)`."""
-
         diameter_str = ''
         condition = ''
         and_str = ''
@@ -156,8 +155,7 @@ class NearEarthObject:
         return f"A neo {self.fullname}{diameter_str}{and_str}{condition}"
 
     def __repr__(self):
-        """Return `repr(self)`, a computer-readable string representation
-        of this object."""
+        """Return `repr(self)`, a computer-readable string representation."""
         return (f"""NearEarthObject(
                         designation={self.designation!r},
                         name={self.name!r}, """
@@ -191,7 +189,6 @@ class CloseApproach:
         :param neo: The NearEarthObject that is making a close approach to
             Earth
         """
-
         if designation == "":
             raise NameError("Error: Wrong value of designation")
         else:
@@ -217,29 +214,32 @@ class CloseApproach:
 
     @property
     def designation(self):
+        """Return designation."""
         return self._designation
 
     @property
     def time(self):
+        """Return time."""
         return self._time
 
     @property
     def distance(self):
+        """Return distance."""
         return self._distance
 
     @property
     def velocity(self):
+        """Return velocity."""
         return self._velocity
 
     @property
     def neo(self):
+        """Return neo."""
         return self._neo
 
     @property
     def time_str(self):
-        """
-        Return a formatted representation of this `CloseApproach`'s
-        approach time.
+        """Return a formatted representation of Date for this CloseApproach.
 
         The value in `self.time` should be a Python `datetime` object. While a
         `datetime` object has a string representation, the default
@@ -250,18 +250,15 @@ class CloseApproach:
         formatted string that can be used in human-readable representations and
         in serialization to CSV and JSON files.
         """
-
         return datetime_to_str(self.time)
 
     @neo.setter
     def neo(self, neo):
+        """Set neo."""
         self._neo = neo
 
     def serialize(self):
-        """
-        Return a dictionary with atrributes as keyy and its values as values
-        """
-
+        """Return a dictionary with atrributes as key and its values."""
         # Prepare dictionary
         res_dict = {'datetime_utc': self.time_str,
                     'distance_au': self.distance,
@@ -271,11 +268,12 @@ class CloseApproach:
         return res_dict
 
     def __str__(self):
-        """Return `str(self)`."""
+        """Return `str(self)`.
 
-        # Example string:
-        # On 1910-05-20 12:49, '1P (Halley)' approaches Earth at a distance
-        # of 0.15 au and a velocity of 70.56 km/s.
+        Example string:
+        On 1910-05-20 12:49, '1P (Halley)' approaches Earth at a distance
+        of 0.15 au and a velocity of 70.56 km/s.
+        """
         if self.neo is None:
             neo_fullname = ""
         else:
@@ -286,10 +284,7 @@ class CloseApproach:
                     and a velocity of {self.velocity:.2f} km/s."""
 
     def __repr__(self):
-        """
-        Return `repr(self)`, a computer-readable string representation
-        of this object.
-        """
+        """Return `repr(self)`, a computer-readable string representation."""
         return (f"""CloseApproach(time={self.time_str!r},
                                   distance={self.distance:.2f}, """
                 f"""velocity={self.velocity:.2f},

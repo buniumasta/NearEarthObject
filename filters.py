@@ -40,10 +40,10 @@ class AttributeFilter:
     Concrete subclasses can override the `get` classmethod to provide custom
     behavior to fetch a desired attribute from the given `CloseApproach`.
     """
+
     def __init__(self, op, value):
         """
-        Construct a new `AttributeFilter` from an binary predicate and
-        a reference value.
+        Construct a new `AttributeFilter.
 
         The reference value will be supplied as the second (right-hand side)
         argument to the operator function. For example, an `AttributeFilter`
@@ -74,58 +74,54 @@ class AttributeFilter:
         raise UnsupportedCriterionError
 
     def __repr__(self):
+        """Machine readable class representation."""
         return f"""{self.__class__.__name__}
                     (op=operator.{self.op.__name__},
                     value={self.value})"""
 
 
 class DistanceFilter(AttributeFilter):
-    """
-    Distance Filter implements get method to return distance attribute for
-    comparison.
-    """
+    """Distance Filter implements get method to return distance for filter."""
+
     @classmethod
     def get(cls, approach):
+        """Return distance."""
         return approach.distance
 
 
 class DateFilter(AttributeFilter):
-    """
-    Date Filter implements get method to return time.date() attribute for
-    comparison.
-    """
+    """Date Filter implements get method to return time.date() for filter."""
+
     @classmethod
     def get(cls, approach):
+        """Return time of approach."""
         return approach.time.date()
 
 
 class VelocityFilter(AttributeFilter):
-    """
-    Velocity Filter implements get method to return velocity attribute for
-    comparison.
-    """
+    """VelocityFilter implements get method to return velocity."""
+
     @classmethod
     def get(cls, approach):
+        """Return velocity."""
         return approach.velocity
 
 
 class DiameterFilter(AttributeFilter):
-    """
-    Daimeter Filter implements get method to return diameter attribute for
-    comparison.
-    """
+    """Diameter Filter implements get method to return diameter."""
+
     @classmethod
     def get(cls, approach):
+        """Return diameter."""
         return approach.neo.diameter
 
 
 class HazardousFilter(AttributeFilter):
-    """
-    Hazardous Filter implements get method to return hazardous attribute
-    for comparison.
-    """
+    """Hazardous Filter implements get method to return hazardous."""
+
     @classmethod
     def get(cls, approach):
+        """Return hazardous."""
         return approach.neo.hazardous
 
 
@@ -173,7 +169,6 @@ def create_filters(date=None, start_date=None, end_date=None,
       potentially hazardous.
     :return: A collection of filters for use with `query`.
     """
-
     filters = []
     # Create date filter, and add to the list
     if date is not None:
@@ -213,7 +208,6 @@ def limit(iterator, n=None):
     :param n: The maximum number of values to produce.
     :yield: The first (at most) `n` values from the iterator.
     """
-
     if n == 0:
         n = None
     return itertools.islice(iterator, n)
