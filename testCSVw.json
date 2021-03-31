@@ -1,0 +1,79 @@
+[
+    {
+        "datetime_utc": "1980-03-21 00:52",
+        "distance_au": 0.378304721955648,
+        "velocity_km_s": 6.01293737705689,
+        "neo": {
+            "designation": "2015 OH",
+            "name": "",
+            "diameter_km": NaN,
+            "potentially_hazardous": false
+        }
+    },
+    {
+        "datetime_utc": "1980-03-21 04:40",
+        "distance_au": 0.27644093320731,
+        "velocity_km_s": 11.2443994602298,
+        "neo": {
+            "designation": "2011 ED12",
+            "name": "",
+            "diameter_km": NaN,
+            "potentially_hazardous": false
+        }
+    },
+    {
+        "datetime_utc": "1980-03-21 08:39",
+        "distance_au": 0.450341341053545,
+        "velocity_km_s": 16.5285587107685,
+        "neo": {
+            "designation": "2001 SQ263",
+            "name": "",
+            "diameter_km": NaN,
+            "potentially_hazardous": false
+        }
+    },
+    {
+        "datetime_utc": "1980-03-21 09:27",
+        "distance_au": 0.198900400844521,
+        "velocity_km_s": 5.58881179680061,
+        "neo": {
+            "designation": "2018 EZ3",
+            "name": "",
+            "diameter_km": NaN,
+            "potentially_hazardous": false
+        }
+    },
+    {
+        "datetime_utc": "1980-03-21 21:01",
+        "distance_au": 0.302886470071186,
+        "velocity_km_s": 39.1161066825048,
+        "neo": {
+            "designation": "394392",
+            "name": "",
+            "diameter_km": 0.636,
+            "potentially_hazardous": false
+        }
+    },
+    {
+        "datetime_utc": "1980-03-21 21:53",
+        "distance_au": 0.394291396939931,
+        "velocity_km_s": 22.7176729657005,
+        "neo": {
+            "designation": "2020 GB",
+            "name": "",
+            "diameter_km": NaN,
+            "potentially_hazardous": false
+        }
+    },
+    {
+        "datetime_utc": "1980-03-21 23:21",
+        "distance_au": 0.304926077622391,
+        "velocity_km_s": 12.1986820121002,
+        "neo": {
+            "designation": "2001 SQ3",
+            "name": "",
+            "diameter_km": NaN,
+            "potentially_hazardous": true
+        }
+    }
+]
