@@ -13,35 +13,6 @@ You'll edit this file in Part 4.
 import csv
 import json
 
-#def writeCSV(filename, data):
-#    with open(filename, 'w', newline='') as csvfile:
-#        fieldnames = data[0].keys()
-#        writer = csv.DictWriter(csvfile, fieldnames=fieldnames)
-#        writer.writeheader()
-#        for row in data:
-#            writer.writerow(row)
-
-# below method will try utilitize serilization
-def write_to_csv1(results, filename):
-    """Write an iterable of `CloseApproach` objects to a CSV file.
-
-    The precise output specification is in `README.md`. Roughly, each output row
-    corresponds to the information in a single close approach from the `results`
-    stream and its associated near-Earth object.
-
-    :param results: An iterable of `CloseApproach` objects.
-    :param filename: A Path-like object pointing to where the data should be saved.
-    """
-
-    fieldnames = ('datetime_utc', 'distance_au', 'velocity_km_s', 'designation', 'name', 'diameter_km', 'potentially_hazardous')
-
-    with open(filename, 'w', newline='') as csv_fl:
-        #fieldnames1 = results[0].keys()
-        writer = csv.DictWriter(csv_fl, fieldnames=fieldnames)
-        writer.writeheader()
-        for row in results:
-            writer.writerow(row)
-
 
 def write_to_csv(results, filename):
     """Write an iterable of `CloseApproach` objects to a CSV file.
@@ -54,7 +25,8 @@ def write_to_csv(results, filename):
     :param filename: A Path-like object pointing to where the data should be saved.
     """
 
-    fieldnames = ('datetime_utc', 'distance_au', 'velocity_km_s', 'designation', 'name', 'diameter_km', 'potentially_hazardous')
+    fieldnames = ('datetime_utc', 'distance_au', 'velocity_km_s',
+                  'designation', 'name', 'diameter_km', 'potentially_hazardous')
 
     with open(filename, 'w', newline='') as csv_fl:
         csv_writer=csv.writer(csv_fl)
@@ -64,10 +36,8 @@ def write_to_csv(results, filename):
                 f_name=''
             else:
                 f_name=result.neo.name
-            #row=f'row:datetime:{result.time_str},distance_au:{result.distance}, velocity_km_s:{result.velocity}, designation:{result.designation}, name:{f_name}, diameter_km{result.neo.diameter}, hazardous:{result.neo.hazardous}'
-            #print(row)
+
             row_to_file=(result.time_str,str(result.distance),str(result.velocity),result.designation,f_name,str(result.neo.diameter),str(result.neo.hazardous))
-            #print(row_to_file)
             csv_writer.writerow(row_to_file)
 
 def write_to_json(results, filename):
@@ -81,20 +51,12 @@ def write_to_json(results, filename):
     :param results: An iterable of `CloseApproach` objects.
     :param filename: A Path-like object pointing to where the data should be saved.
     """
-    # TODO: Write the results to a JSON file, following the specification in the instructions.
-    #fieldnames = ('datetime_utc', 'distance_au', 'velocity_km_s', 'designation', 'name', 'diameter_km', 'potentially_hazardous')
 
     lista=[]
+    #Format results into Dictionary with serialize method
     for result in results:
-        #print(result.serialize())
         lista.append(result.serialize())
 
-    print(lista)
-
+    #Write re-formatted results to Json file
     with open(filename,'w') as json_fl:
-        #
         json.dump(lista, json_fl, indent=4)
-
-if __name__ == '__main__':
-    pass
-    ##write_to_csv()
