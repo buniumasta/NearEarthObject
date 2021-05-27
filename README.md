@@ -22,22 +22,18 @@ When complete, you'll be able to inspect the properties of the near-Earth object
 - Has a diameter that is at least as large as (or at least as small as) Z kilometers.
 - Is marked by NASA as potentially hazardous (or not).
 
-### Learning Objectives
-
-By completing this project, you'll have demonstrated an ability to:
+Following was achieved:
 
 - Represent structured data in Python.
 - Extract data from structured files into Python.
 - Transform the data within Python according to some desired behavior.
 - Save the results in a structured way to a file.
 
-Along the way, you'll have to be able to:
+and
 
 - Write Python functions to transform data and perform algorithms.
 - Design Python classes to encapsulate useful data types.
 - Provide interface abstractions for complex implementations.
-
-It's normal to encounter bugs along the way, so in all likelihood, you'll also gain practice with valuable debugging skills, whether interpreting stack traces, chasing down system errors, handling and raising appropriate errors, walking through code with `pdb`, checking preconditions with `assert`, or simply displaying internal state with `print`.
 
 ## Understanding the Near Earth Object Close Approach Datasets
 
@@ -63,7 +59,7 @@ a0000433,2000433,"   433 Eros (A898 PA)",433,Eros,,Y,N,10.4,0.46,,,,,,16.84,34.4
 a0000719,2000719,"   719 Albert (A911 TB)",719,Albert,,Y,N,15.5,,,,,,,,,,5.801,,,,,S,,,,"JPL 214",2459000.5,59000,20200531.0000000,J2000,.5465584653041263,2.63860206439375,1.196451769530403,11.56748478123323,183.8669499802364,156.17633771,140.2734217745985,4.080752359257098,.2299551959241748,2458390.496728663387,20180928.9967287,1565.522355575327,4.28616661348481,.203482,79.18908994,1.41794,3.140,2.1784E-8,2.5313E-9,5.8116E-8,2.9108E-6,1.6575E-5,1.6827E-5,2.5213E-6,3.9148E-9,3.309E-10,1.0306E-5,2.2528E-6,AMO,"Otto Matic",39593,1911-10-04,2020-02-27,1874,,,0,.39148,,,,,
 ```
 
-Before we're able to write Python code to process this data, we'll need to understand what this data represents.
+Before write Python code to process this data, need to understand what this data represents.
 
 In this CSV file, the first row is a header, containing names for each of the columns. Each subsequent row represents a single NEO. There are too many columns to understand fully (although we encourage you to learn more by searching NASA's website!), so we'll focus on just a few of them:
 
@@ -180,9 +176,7 @@ Also, it's important to realize that NASA is discovering new NEOs, and potential
 
 ## Project Interface
 
-Now that we understand the data with which we'll be working, let's dive into what our program will actually do
-
-This project is driven by the `main.py` script. That means that you'll run `python3 main.py ... ... ...` at the command line to invoke the program that will call your code.
+This project is driven by the `main.py` script. That means that you'll run `python3 main.py ... ... ...` at the command line to invoke the program that will call code.
 
 At a command line, you can run `python3 main.py --help` for an explanation of how to invoke the script.
 
